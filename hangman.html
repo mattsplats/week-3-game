@@ -9,6 +9,7 @@
 
 	<link rel="stylesheet" type="text/css" href="https://bootswatch.com/superhero/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap_override.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/hangman.css">
 
 	<title>Portfolio: Hangman Game</title>
 </head>
@@ -50,13 +51,14 @@
 				<p class="text-center">Wins: <span id="winCount">0</span></p>
 
 				<p class="text-center">Current Word</p>
-				<p class="text-center"><span id="displayWord">_ _ _</span><br/><br/></p>
+				<div id="wordStatus" class="text-center">_ _ _</div>
 
-				<p class="text-center">Number of guesses remaining</p>
-				<p class="text-center"><span id="guessesRemaining">10</span></p>
+				<p><br/></p>
 
-				<p class="text-center">Letters already guessed</p>
-				<p class="text-center""><span id="lettersGuessed">e</span></p>
+				<p class="text-center">Number of guesses remaining: <span id="guessesRemaining">10</span></p>
+
+				<p class="text-center">Letters already guessed:</p>
+				<div id="lettersGuessed" class="text-center"">E</div>
 				
 			</section>
 

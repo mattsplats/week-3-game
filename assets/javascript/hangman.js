@@ -1,18 +1,17 @@
 var game = {
-	// Persistent variables
+	// "Static" members
 	staticWordList: ["JEDI", "LIGHTSABER", "BLASTER", "DARTH VADER", "MOS EISLEY", "EWOKS", "LANDO CALRISSIAN", "LUKE SKYWALKER", "HAN SOLO", "CHEWBACCA", "DEATH STAR", "TATOOINE", "JABBA THE HUT", "CORUSCANT", "DAGOBAH", "OBI WAN KENOBI", "FORCE", "MILENNIUM FALCON"],
-	winCount: 0,
 
-	// Per-game variables
+	// Variables
 	activeWordList: [],
 	guessesRemaining: 10,
 	lettersGuessed: "",
+	winCount: 0,
 	word: "",
 	wordStatus: "",
 
 	// Methods
 	checkGuess: function(guess) {
-
 		// Only check guess if input is a letter (uses a regular expression)
 		if (/[A-Z]/.test(guess)) {
 
@@ -46,17 +45,15 @@ var game = {
 		// Ignore if the guess has already been made
 		if (this.lettersGuessed.indexOf(guess) == -1) {
 			
-			// Decrement remaining guesses
-			this.guessesRemaining--;
-
-			// Add guess to lettersGuessed
-			if (this.lettersGuessed == "") {
-				this.lettersGuessed += guess;
+			// Add guess to lettersGuessed (clear newline from wordStatus if first wrong guess)
+			if (this.lettersGuessed == "<br/>") {
+				this.lettersGuessed = guess;
 			} else {
 				this.lettersGuessed += ", " + guess;
 			}
 
 			// Out of guesses?
+			this.guessesRemaining--;
 			if (this.guessesRemaining < 1) {
 				this.newWord();
 			}
@@ -66,14 +63,12 @@ var game = {
 	updateDisplay: function() {
 		// Update all text fields
 		document.getElementById("winCount").innerHTML = this.winCount;
-		document.getElementById("displayWord").innerHTML = this.wordStatus;
+		document.getElementById("wordStatus").innerHTML = this.wordStatus;
 		document.getElementById("guessesRemaining").innerHTML = this.guessesRemaining;
 		document.getElementById("lettersGuessed").innerHTML = this.lettersGuessed;
 	},
 
 	newWord: function() {
-		var newWordIndex;
-
 		// If active list is empty, refill
 		if (this.activeWordList.length < 1) {
 			
@@ -87,15 +82,14 @@ var game = {
 		}
 
 		// Choose new word at random from active list
-		newWordIndex = Math.floor(Math.random() * this.activeWordList.length);
-		this.word = this.activeWordList[newWordIndex];
+		this.word = this.activeWordList[Math.floor(Math.random() * this.activeWordList.length)];
 
 		// Remove new word from active list
 		this.activeWordList.splice(this.activeWordList.indexOf(this.word), 1);
 
 		// Reset guessesRemaining, lettersGuessed, wordStatus
 		this.guessesRemaining = 10;
-		this.lettersGuessed = "";
+		this.lettersGuessed = "<br/>";
 		this.wordStatus = this.word.replace(/[A-Z]/g, "_");
 	}
 };
