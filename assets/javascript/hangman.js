@@ -12,11 +12,9 @@ var game = {
 
 	// Methods
 	checkGuess: function(guess) {
-		debugger;
 
 		// Only check guess if input is a letter (uses a regular expression)
 		if (/[A-Z]/.test(guess)) {
-			debugger;
 
 			// Correct guess?
 			if (this.word.indexOf(guess) > -1) {
@@ -24,7 +22,6 @@ var game = {
 			} else {
 				this.wrongGuess(guess);
 			}
-			debugger;
 
 			this.updateDisplay();
 		}
@@ -37,53 +34,41 @@ var game = {
 				this.wordStatus = this.wordStatus.substr(0, i) + guess + this.wordStatus.substr(i + 1);
 			}
 		}
-		debugger;
 
 		// Word complete?
 		if (this.wordStatus == this.word) {
 			this.winCount++;
 			this.newWord();
 		}
-		debugger;
 	},
 
 	wrongGuess: function(guess) {
-		// Decrement remaining guesses
-		this.guessesRemaining--;
+		// Ignore if the guess has already been made
+		if (this.lettersGuessed.indexOf(guess) == -1) {
+			
+			// Decrement remaining guesses
+			this.guessesRemaining--;
 
-		// Add guess to lettersGuessed
-		if (this.lettersGuessed == "") {
-			this.lettersGuessed += guess;
-		} else {
-			this.lettersGuessed += ", " + guess;
-		}
-		debugger;
+			// Add guess to lettersGuessed
+			if (this.lettersGuessed == "") {
+				this.lettersGuessed += guess;
+			} else {
+				this.lettersGuessed += ", " + guess;
+			}
 
-		// Out of guesses?
-		if (this.guessesRemaining < 1) {
-			this.newWord();
+			// Out of guesses?
+			if (this.guessesRemaining < 1) {
+				this.newWord();
+			}
 		}
-		debugger;
 	},
 
 	updateDisplay: function() {
-		var displayWord = "";
-
-		// Create word for display, with added spaces
-		for (var i = 0; i < this.wordStatus.length; i++) {
-			displayWord += this.wordStatus.charAt(i);
-			if (i != this.wordStatus.length - 1) {
-				displayWord += "&nbsp;";
-			}
-		}
-		debugger;
-
 		// Update all text fields
 		document.getElementById("winCount").innerHTML = this.winCount;
-		document.getElementById("displayWord").innerHTML = displayWord;
+		document.getElementById("displayWord").innerHTML = this.wordStatus;
 		document.getElementById("guessesRemaining").innerHTML = this.guessesRemaining;
 		document.getElementById("lettersGuessed").innerHTML = this.lettersGuessed;
-		debugger;
 	},
 
 	newWord: function() {
@@ -91,28 +76,27 @@ var game = {
 
 		// If active list is empty, refill
 		if (this.activeWordList.length < 1) {
-			this.activeWordList = this.staticWordList;
-			debugger;
+			
+			// Workaround to prevent .splice() from removing elements from staticWordList
+			for (var i = 0; i < this.staticWordList.length; i++) {
+				this.activeWordList[i] = this.staticWordList[i];
+			}
 
 			// Remove the last word played from active list
 			this.activeWordList.splice(this.activeWordList.indexOf(this.word), 1);
 		}
-		debugger;
 
 		// Choose new word at random from active list
 		newWordIndex = Math.floor(Math.random() * this.activeWordList.length);
 		this.word = this.activeWordList[newWordIndex];
-		debugger;
 
 		// Remove new word from active list
 		this.activeWordList.splice(this.activeWordList.indexOf(this.word), 1);
-		debugger;
 
 		// Reset guessesRemaining, lettersGuessed, wordStatus
 		this.guessesRemaining = 10;
 		this.lettersGuessed = "";
 		this.wordStatus = this.word.replace(/[A-Z]/g, "_");
-		debugger;
 	}
 };
 
