@@ -12,15 +12,19 @@ var game = {
 
 	// Methods
 	checkGuess: function(guess) {
+		debugger;
+
 		// Only check guess if input is a letter (uses a regular expression)
 		if (/[A-Z]/.test(guess)) {
-			
+			debugger;
+
 			// Correct guess?
 			if (this.word.indexOf(guess) > -1) {
 				this.correctGuess(guess);
 			} else {
 				this.wrongGuess(guess);
 			}
+			debugger;
 
 			this.updateDisplay();
 		}
@@ -33,11 +37,13 @@ var game = {
 				this.wordStatus = this.wordStatus.substr(0, i) + guess + this.wordStatus.substr(i + 1);
 			}
 		}
+		debugger;
 
 		// Word complete?
 		if (this.wordStatus == this.word) {
 			this.newWord();
 		}
+		debugger;
 	},
 
 	wrongGuess: function(guess) {
@@ -50,28 +56,32 @@ var game = {
 		} else {
 			this.lettersGuessed += ", " + guess;
 		}
+		debugger;
 
 		// Out of guesses?
 		if (this.guessesRemaining < 1) {
 			this.newWord();
 		}
+		debugger;
 	},
 
 	updateDisplay: function() {
-		var displayWord;
+		var displayWord = "";
 
 		// Create word for display, with added spaces
 		for (var i = 0; i < this.wordStatus.length; i++) {
 			displayWord += this.wordStatus.charAt(i);
 			if (i != this.wordStatus.length - 1) {
-				displayWord += " ";
+				displayWord += "&nbsp;";
 			}
 		}
+		debugger;
 
 		// Update all text fields
 		document.getElementById("displayWord").innerHTML = displayWord;
 		document.getElementById("guessesRemaining").innerHTML = this.guessesRemaining;
 		document.getElementById("lettersGuessed").innerHTML = this.lettersGuessed;
+		debugger;
 	},
 
 	newWord: function() {
@@ -79,23 +89,28 @@ var game = {
 
 		// If active list is empty, refill
 		if (this.activeWordList.length < 1) {
-			
-			// Remove the last word played from active list
-			this.activeWordList = this.staticWordList.splice(this.staticWordList.indexOf(this.word), 1);
-		}
+			this.activeWordList = this.staticWordList;
+			debugger;
 
+			// Remove the last word played from active list
+			this.activeWordList.splice(this.activeWordList.indexOf(this.word), 1);
+		}
 		debugger;
+
 		// Choose new word at random from active list
 		newWordIndex = Math.floor(Math.random() * this.activeWordList.length);
-		word = this.activeWordList[newWordIndex];
+		this.word = this.activeWordList[newWordIndex];
+		debugger;
 
 		// Remove new word from active list
-		this.activeWordList = this.activeWordList.splice(newWordIndex, 1);
+		this.activeWordList.splice(this.activeWordList.indexOf(this.word), 1);
+		debugger;
 
 		// Reset guessesRemaining, lettersGuessed, wordStatus
 		this.guessesRemaining = 10;
 		this.lettersGuessed = "";
 		this.wordStatus = this.word.replace(/[A-Z]/g, "_");
+		debugger;
 	}
 };
 
@@ -105,6 +120,6 @@ game.updateDisplay();
 
 // Parse user input
 document.onkeyup = function(event){
-	var guess = String.fromCharCode(guess.keyCode).toUpperCase();
+	var guess = String.fromCharCode(event.keyCode).toUpperCase();
 	game.checkGuess(guess);
 }
