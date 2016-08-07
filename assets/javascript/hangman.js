@@ -41,6 +41,7 @@ var game = {
 
 		// Word complete?
 		if (this.wordStatus == this.word) {
+			this.winCount++;
 			this.newWord();
 		}
 		debugger;
@@ -78,6 +79,7 @@ var game = {
 		debugger;
 
 		// Update all text fields
+		document.getElementById("winCount").innerHTML = this.winCount;
 		document.getElementById("displayWord").innerHTML = displayWord;
 		document.getElementById("guessesRemaining").innerHTML = this.guessesRemaining;
 		document.getElementById("lettersGuessed").innerHTML = this.lettersGuessed;
