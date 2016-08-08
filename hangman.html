@@ -7,6 +7,7 @@
 
 	<meta name="description" content="Hangman: Star Wars Edition!">
 
+	<link href='https://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="https://bootswatch.com/superhero/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap_override.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/hangman.css">
@@ -37,20 +38,32 @@
 	</nav>
 
 	<div class="container main">
-		<div class="row">
-			<section class="col-md-8 fade-in">
-				<div class="page-header"><h2>Hangman: Star Wars</h2></div>
+		<div class="row fade-in">
+			<section class="col-md-12">
+				<div class="page-header"><h2>Hangman: Star Wars Edition</h2></div>
 
 				<blockquote>
 					<p>Do, or do not.  There is no try.</p>
 					<small class="text-muted"><cite title="Source Title">Master Yoda</cite></small>
 				</blockquote>
+				
+				<div><br/><br/><div>
+			</section>
+		</div>
 
+		<div class="row fade-in">
+			<div class="col-md-1"></div>
+
+			<section class="col-md-4">
+				<div class="center"><img id="currentImage" class="center fade-in-no-warp" src="."></div>
+			</section>
+
+			<section class="col-md-6">
 				<p class="text-center">Press any key to get started!</p>
 
 				<p class="text-center">Wins: <span id="winCount">0</span></p>
 
-				<p class="text-center">Current Word</p>
+				<p class="text-center">Current Word:</p>
 				<div id="wordStatus" class="text-center">_ _ _</div>
 
 				<p><br/></p>
@@ -59,28 +72,9 @@
 
 				<p class="text-center">Letters already guessed:</p>
 				<div id="lettersGuessed" class="text-center"">E</div>
-				
 			</section>
 
 			<div class="col-md-1"></div>
-
-			<aside class="col-md-3">
-				<div class="page-header"><h3>Connect with Me</h3></div>
-				<div id="social_image_block">
-					<div class="social_image">
-						<a href="https://github.com/mattsplats" target="_blank"><img src="assets/images/social_github.png" alt="GitHub"></a>
-						<div>GitHub</div>
-					</div>
-					<div class="social_image">
-						<a href="https://www.linkedin.com/in/matt-davis-1a6700125" target="_blank"><img src="assets/images/social_linkedin.png" alt="LinkedIn"></a>
-						<div>LinkedIn</div>
-					</div>
-					<div class="social_image">
-						<a href="https://stackexchange.com/users/8879280/m-davis" target="_blank"><img src="assets/images/social_stackoverflow.png" alt="StackOverflow"></a>
-						<div>StackOverflow</div>
-					</div>
-				</div>
-			</aside>
 		</div>
 	</div>
 
@@ -89,6 +83,8 @@
 			<p class="text-center text-muted">&copy; Copyright 2016 Matt Davis</p>
 		</div>
 	</footer>
+
+	<!--<audio src="https://ia801703.us.archive.org/15/items/StarWarsThemeSongByJohnWilliams/Star%20Wars%20Theme%20Song%20By%20John%20Williams.mp3" autoplay=true></audio>-->
 
 	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script src="https://bootswatch.com/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

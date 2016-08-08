@@ -3,7 +3,24 @@ body {
 }
 
 #wordStatus {
+	font-family: "Inconsolata";
 	font-size: 2.5em;
 	letter-spacing: 18px;
 	margin-right: -18px;
+}
+
+.center {
+	width: 300px;
+	margin: 0 auto 25px auto;
+}
+
+.fade-in-no-warp {
+	animation-name: fade-in-no-warp;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+}
+
+@keyframes fade-in-no-warp {
+	0%   {opacity: 0;}
+	100% {opacity: 1;}
 }
