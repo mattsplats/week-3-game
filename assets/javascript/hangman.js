@@ -1,18 +1,11 @@
 var game = {
-	// "Static" members
-	//staticWordList: ["JEDI", "LIGHTSABER", "BLASTER", "DARTH VADER", "MOS EISLEY", "EWOKS", "LANDO CALRISSIAN", "LUKE SKYWALKER", "HAN SOLO", "CHEWBACCA", "DEATH STAR", "TATOOINE", "JABBA THE HUT", "CORUSCANT", "DAGOBAH", "OBI WAN KENOBI", "FORCE", "MILENNIUM FALCON"],
-	staticWordList: [{word: "JEDI", image: "http://news.filehippo.com/wp-content/uploads/2014/05/star-wars-funny-1024x576.jpg"},
-		{word: "LIGHTSABER", image: "https://i.ytimg.com/vi/p2iUzSjyue0/maxresdefault.jpg"},
-		{word: "BLASTER", image: "http://vignette4.wikia.nocookie.net/starwars/images/5/59/Dh-17.jpg/revision/latest?cb=20070224204231"},
-		{word: "DARTH VADER", image: "http://img.lum.dolimg.com/v1/images/Darth-Vader_6bda9114.jpeg?region=0%2C23%2C1400%2C785&width=768"}],
-
 	// Variables
 	activeWordList: [],
 	currentImage: "",
 	guessesRemaining: 10,
 	lettersGuessed: "",
+	staticWordList: [],
 	winCount: 0,
-	word: "",
 	wordObject: "",
 	wordStatus: "",
 
@@ -22,7 +15,7 @@ var game = {
 		if (/[A-Z]/.test(guess)) {
 
 			// Correct guess?
-			if (this.word.indexOf(guess) > -1) {
+			if (this.wordObject.word.indexOf(guess) > -1) {
 				this.correctGuess(guess);
 			} else {
 				this.wrongGuess(guess);
@@ -34,14 +27,14 @@ var game = {
 
 	correctGuess: function(guess) {
 		// Replace all letters that =guess in wordStatus with correct letter
-		for (var i = 0; i < this.word.length; i++) {
-			if (this.word.charAt(i) == guess) {
+		for (var i = 0; i < this.wordObject.word.length; i++) {
+			if (this.wordObject.word.charAt(i) == guess) {
 				this.wordStatus = this.wordStatus.substr(0, i) + guess + this.wordStatus.substr(i + 1);
 			}
 		}
 
 		// Word complete?
-		if (this.wordStatus == this.word) {
+		if (this.wordStatus == this.wordObject.word) {
 			this.winCount++;
 			this.newWord();
 		}
@@ -86,6 +79,7 @@ var game = {
 	},
 
 	newWord: function() {
+		debugger;
 		var newWordIndex;
 
 		// If active list is empty, refill
@@ -96,7 +90,7 @@ var game = {
 			// emptyOffset prevents a null object in the array
 			var emptyOffset = 0;
 			for (var i = 0; i < this.staticWordList.length; i++) {
-				this.staticWordList[i].word != this.word ? 
+				this.staticWordList[i].word != this.wordObject.word ? 
 					this.activeWordList[i - emptyOffset] = this.staticWordList[i] :
 					emptyOffset++;
 			}
@@ -107,7 +101,6 @@ var game = {
 		// Choose new word at random from active list
 		var newWordIndex = Math.floor(Math.random() * this.activeWordList.length);
 		this.wordObject = this.activeWordList[newWordIndex];
-		this.word = this.wordObject.word;
 
 		// Remove new word(Object) from active list
 		this.activeWordList.splice(newWordIndex, 1);
@@ -115,13 +108,18 @@ var game = {
 		// Reset guessesRemaining, lettersGuessed, wordStatus
 		this.guessesRemaining = 10;
 		this.lettersGuessed = "<br/>";
-		this.wordStatus = this.word.replace(/[A-Z]/g, "_");
+		this.wordStatus = this.wordObject.word.replace(/[A-Z]/g, "_");
+	},
+
+	initialize: function() {
+		this.staticWordList = loadData.data;
+		this.newWord();
+		this.updateText();
 	}
 };
 
 // Initialize new game on page load
-game.newWord();
-game.updateText();
+game.initialize();
 
 // Parse user input
 document.onkeyup = function(event){
