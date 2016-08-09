@@ -111,15 +111,15 @@ var game = {
 		this.wordStatus = this.wordObject.word.replace(/[A-Z]/g, "_");
 	},
 
-	initialize: function() {
-		this.staticWordList = loadData.data;
+	initialize: function(data) {
+		this.staticWordList = data;
 		this.newWord();
 		this.updateText();
 	}
 };
 
 // Initialize new game on page load
-game.initialize();
+//game.initialize();
 
 // Parse user input
 document.onkeyup = function(event){

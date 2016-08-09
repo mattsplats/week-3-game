@@ -89,8 +89,25 @@
 	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script src="https://bootswatch.com/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script src="https://bootswatch.com/assets/js/custom.js"></script>
-	<script src="assets/javascript/loaddata.js"></script>
-	<script src="https://spreadsheets.google.com/feeds/list/1-Vdisq8Hi_xWZ3fnLzJic3c8nNeAIf-M_W_OCo1p_Gw/od6/public/basic?alt=json-in-script&callback=loadData.load"></script>
+	<script src="assets/javascript/tabletop-master/src/tabletop.js"></script>
 	<script src="assets/javascript/hangman.js"></script>
+	<script type="text/javascript">
+	  window.onload = function() { init() };
+
+	  var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1t91WBYfhh9FKVT2IRz8G_1cx8G1EkyfFQlk-AMPFwcQ/pubhtml';
+
+	  function init() {
+	    Tabletop.init( { key: public_spreadsheet_url,
+	                     callback: showInfo,
+	                     simpleSheet: true } )
+	  }
+
+	  function showInfo(data, tabletop) {
+	    console.log(data);
+	    game.initialize(data);
+	  }
+	</script>
+	<!--<script src="https://spreadsheets.google.com/feeds/list/1-Vdisq8Hi_xWZ3fnLzJic3c8nNeAIf-M_W_OCo1p_Gw/od6/public/basic?alt=json-in-script&callback=loadData.load"></script>-->
+	
 </body>
 </html>
