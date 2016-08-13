@@ -1,32 +1,12 @@
-//var loadData = {
-//	data: [],
-//	load: function(object) {
-//		var badJson;
-//		var correctJson;
-//
-//		for (var i = 0; i < object.feed.entry.length; i++) {
-//			badJson = object.feed.entry[i].content.$t;
-//			correctJson = "{" + badJson.replace(/(word|image(?=:))/g, '"$1"') + "}";
-//			debugger;
-//			this.data[i] = JSON.parse(correctJson);
-//		}
-//		console.log(this.data);
-//	}
-//}
+// Pulls in Google sheets data, calls startGame once data is ready
+Tabletop.init(
+	{
+		key: "https://docs.google.com/spreadsheets/d/1t91WBYfhh9FKVT2IRz8G_1cx8G1EkyfFQlk-AMPFwcQ/pubhtml",
+		callback: startGame,
+		simpleSheet: true
+	});
 
-window.onload = function() { init() };
-
-  var public_spreadsheet_url = 'https://docs.google.com/spreadsheet/pub?hl=en_US&hl=en_US&key=0AmYzu_s7QHsmdDNZUzRlYldnWTZCLXdrMXlYQzVxSFE&output=html';
-
-  function init() {
-    Tabletop.init( { key: public_spreadsheet_url,
-                     callback: showInfo,
-                     simpleSheet: true } )
-  }
-
-  function showInfo(data, tabletop) {
-    debugger;
-    console.log(data);
- }
-
- console.log(Tabletop.data);
+// Initializes game
+function startGame(data) {
+	game.initialize(data);
+}

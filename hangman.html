@@ -51,30 +51,30 @@
 			</section>
 		</div>
 
-		<div class="row fade-in">
-			<div class="col-md-1"></div>
+		<div class="row fade-in bottom-margin">
+			<section class="col-md-12">
+				<button id="musicToggle" class="btn btn-default center-block">Music On/Off</button>
+				<p class="text-center">Press any letter key to get started!</p>
+				<p class="text-center">Wins: <span id="winCount">0</span></p>
+			</section>
+		</div>
 
-			<section class="col-md-3">
-				<div class="center"><img id="currentImage" class="center fade-in" src="."></div>
+		<div class="row fade-in">
+			<section class="col-md-5">
+				<div class="bottom-margin"><img id="currentImage" class="img-responsive center-block fade-in" src="assets/images/hangman/logo.png"></div>
 			</section>
 
 			<section class="col-md-7">
-				<p class="text-center">Press any key to get started!</p>
+				<p class="text-center">Guesses remaining: <span id="guessesRemaining">10</span></p>
 
-				<p class="text-center">Wins: <span id="winCount">0</span></p>
+				<div class="bottom-margin"></div>
 
-				<p class="text-center">Current Word:</p>
-				<div id="wordStatus" class="text-center">_ _ _</div>
+				<div id="wordStatus" class="text-center">LOADING...</div>
 
-				<p><br/></p>
-
-				<p class="text-center">Number of guesses remaining: <span id="guessesRemaining">10</span></p>
-
-				<p class="text-center">Letters already guessed:</p>
-				<div id="lettersGuessed" class="text-center"">E</div>
+				<div class="bottom-margin"></div>
+				
+				<div id="lettersGuessed" class="text-center">&nbsp;</div>
 			</section>
-
-			<div class="col-md-1"></div>
 		</div>
 	</div>
 
@@ -84,30 +84,14 @@
 		</div>
 	</footer>
 
-	<!--<audio src="https://ia801703.us.archive.org/15/items/StarWarsThemeSongByJohnWilliams/Star%20Wars%20Theme%20Song%20By%20John%20Williams.mp3" autoplay=true></audio>-->
+	<audio id="music" src="assets/audio/themesong.mp3" autoplay=true></audio>
+
+	<script src="assets/javascript/tabletop.js"></script>
+	<script src="assets/javascript/loaddata.js"></script>
 
 	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script src="https://bootswatch.com/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script src="https://bootswatch.com/assets/js/custom.js"></script>
-	<script src="assets/javascript/tabletop-master/src/tabletop.js"></script>
 	<script src="assets/javascript/hangman.js"></script>
-	<script type="text/javascript">
-	  window.onload = function() { init() };
-
-	  var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1t91WBYfhh9FKVT2IRz8G_1cx8G1EkyfFQlk-AMPFwcQ/pubhtml';
-
-	  function init() {
-	    Tabletop.init( { key: public_spreadsheet_url,
-	                     callback: showInfo,
-	                     simpleSheet: true } )
-	  }
-
-	  function showInfo(data, tabletop) {
-	    console.log(data);
-	    game.initialize(data);
-	  }
-	</script>
-	<!--<script src="https://spreadsheets.google.com/feeds/list/1-Vdisq8Hi_xWZ3fnLzJic3c8nNeAIf-M_W_OCo1p_Gw/od6/public/basic?alt=json-in-script&callback=loadData.load"></script>-->
-	
 </body>
 </html>

@@ -36,6 +36,7 @@ var game = {
 		// Word complete?
 		if (this.wordStatus == this.wordObject.word) {
 			this.winCount++;
+			this.updateImage();
 			this.newWord();
 		}
 	},
@@ -43,28 +44,38 @@ var game = {
 	wrongGuess: function(guess) {
 		// Ignore if the guess has already been made
 		if (this.lettersGuessed.indexOf(guess) == -1) {
-			
-			// Add guess to lettersGuessed (clear newline from wordStatus if first wrong guess)
-			if (this.lettersGuessed == "<br/>") {
-				this.lettersGuessed = guess;
-			} else {
-				this.lettersGuessed += ", " + guess;
+
+			// Add guess to lettersGuessed object variable
+			this.lettersGuessed += guess;
+
+			// If lettersGuessed has 1 or more guesses, add trailing space
+			if (this.lettersGuessed.length > 1){
+				var spaceSpan = document.createElement("span");
+				spaceSpan.innerHTML = "&nbsp;&nbsp;";
+				document.getElementById("lettersGuessed").appendChild(spaceSpan);
 			}
+
+			// Add guess to lettersGuessed div
+			var letterSpan = document.createElement("span");
+			letterSpan.innerHTML = guess;
+			letterSpan.setAttribute("class", "strikethrough");
+			document.getElementById("lettersGuessed").appendChild(letterSpan);
 
 			// Out of guesses?
 			this.guessesRemaining--;
 			if (this.guessesRemaining < 1) {
+				this.updateImage();
 				this.newWord();
 			}
 		}
 	},
 
 	updateText: function() {
-		// Update all text fields
+		// Update all text fields (except lettersGuessed, handled by wrongGuess)
 		document.getElementById("winCount").innerHTML = this.winCount;
 		document.getElementById("wordStatus").innerHTML = this.wordStatus;
 		document.getElementById("guessesRemaining").innerHTML = this.guessesRemaining;
-		document.getElementById("lettersGuessed").innerHTML = this.lettersGuessed;
+		// document.getElementById("lettersGuessed").innerHTML = this.lettersGuessed;
 	},
 
 	updateImage: function() {
@@ -79,7 +90,6 @@ var game = {
 	},
 
 	newWord: function() {
-		debugger;
 		var newWordIndex;
 
 		// If active list is empty, refill
@@ -96,10 +106,8 @@ var game = {
 			}
 		}
 
-		this.updateImage();
-
 		// Choose new word at random from active list
-		var newWordIndex = Math.floor(Math.random() * this.activeWordList.length);
+		newWordIndex = Math.floor(Math.random() * this.activeWordList.length);
 		this.wordObject = this.activeWordList[newWordIndex];
 
 		// Remove new word(Object) from active list
@@ -107,7 +115,8 @@ var game = {
 
 		// Reset guessesRemaining, lettersGuessed, wordStatus
 		this.guessesRemaining = 10;
-		this.lettersGuessed = "<br/>";
+		this.lettersGuessed = "";
+		document.getElementById("lettersGuessed").innerHTML = "";
 		this.wordStatus = this.wordObject.word.replace(/[A-Z]/g, "_");
 	},
 
@@ -118,11 +127,16 @@ var game = {
 	}
 };
 
-// Initialize new game on page load
-//game.initialize();
-
 // Parse user input
 document.onkeyup = function(event){
 	var guess = String.fromCharCode(event.keyCode).toUpperCase();
 	game.checkGuess(guess);
+}
+
+document.getElementById("musicToggle").onclick = function(event){
+	var music = document.getElementById("music");
+
+	// Play if paused, pause if playing
+	if (music.paused){ music.play(); }
+	else { music.pause(); }
 }
