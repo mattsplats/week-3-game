@@ -15,20 +15,16 @@ body {
 	font-size: 1.8em;
 }
 
-/*#currentImage {
-	max-width: 400px;
-}*/
-
-/*.center {
-	margin: 0 auto;
-}*/
-
 .bottom-margin {
 	margin-bottom: 30px;
 }
 
 .strikethrough {
 	text-decoration: line-through red solid;
+}
+
+.btn:focus,.btn:active {
+   outline: none !important;
 }
 
 /*.fade-in-no-warp {

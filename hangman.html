@@ -52,14 +52,13 @@
 		</div>
 
 		<div class="row fade-in bottom-margin">
-			<section class="col-md-12">
-				<button id="musicToggle" class="btn btn-default center-block">Music On/Off</button>
-				<p class="text-center">Press any letter key to get started!</p>
-				<p class="text-center">Wins: <span id="winCount">0</span></p>
+			<section class="col-md-12 text-center">
+				<p>Press any letter key to play!</p>
+				<p>Wins: <span id="winCount">0</span></p>
 			</section>
 		</div>
 
-		<div class="row fade-in">
+		<div class="row fade-in bottom-margin">
 			<section class="col-md-5">
 				<div class="bottom-margin"><img id="currentImage" class="img-responsive center-block fade-in" src="assets/images/hangman/logo.png"></div>
 			</section>
@@ -76,6 +75,15 @@
 				<div id="lettersGuessed" class="text-center">&nbsp;</div>
 			</section>
 		</div>
+
+		<div class="row fade-in bottom-margin">
+			<section class="col-md-12 text-center">
+				<div>
+					<button id="musicToggle" class="btn btn-default">Music: <span id="musicPlaying">Playing</span></button>&nbsp;&nbsp;
+					<button id="sfxToggle" class="btn btn-default">Sound Effects: <span id="sfxOn">On</span></button>
+				</div>
+			</section>
+		</div>
 	</div>
 
 	<footer class="footer">
@@ -84,7 +92,7 @@
 		</div>
 	</footer>
 
-	<audio id="music" src="assets/audio/themesong.mp3" autoplay=true></audio>
+	<audio id="music" src="assets/music/themesong.mp3" autoplay loop></audio>
 
 	<script src="assets/javascript/tabletop.js"></script>
 	<script src="assets/javascript/loaddata.js"></script>

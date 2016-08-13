@@ -1,3 +1,6 @@
+// Immediately sets lower music volume
+document.getElementById("music").volume = 0.1;
+
 // Pulls in Google sheets data, calls startGame once data is ready
 Tabletop.init(
 	{
